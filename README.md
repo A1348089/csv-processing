@@ -54,4 +54,3 @@ A Django-based web application that processes CSV files asynchronously using Cel
   Upload a CSV file
   View processed results (total sales, best-selling products, etc.)
   Use search to filter product data dynamically
-"# csv-processing" 
