@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block content %}
+
+{% if messages %}
+    {% for message in messages %}
+        <div class="alert {% if message.tags == 'error' %}alert-danger{% else %}alert-success{% endif %}">
+            {{ message }}
+        </div>
+    {% endfor %}
+{% endif %}
+
+<!-- File Upload Form -->
+<form hx-post="{% url 'upload_file' %}" hx-target="#table-container" enctype="multipart/form-data">
+    {% csrf_token %}
+    <input type="file" name="file" class="form-control my-2">
+    <button type="submit" class="btn btn-primary">Upload</button>
+</form>
+
+<!-- Search Form (HTMX for Live Search) -->
+<form hx-post="{% url 'search_product' %}" hx-target="#table-container">
+    {% csrf_token %}
+    <input type="text" name="product_name" placeholder="Search Product" class="form-control" hx-trigger="keyup changed delay:300ms">
+</form>
+
+<!-- Table Container (Updated Dynamically) -->
+<div id="table-container">
+    {% include 'file_upload/table.html' %}
+</div>
+
+{% endblock %}

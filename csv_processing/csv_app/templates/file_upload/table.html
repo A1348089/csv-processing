@@ -1,0 +1,45 @@
+{% if data %}
+    <h5>Processed Data Metrics:</h5>
+    <div>
+        <ul style="display: flex; list-style: none; justify-content:space-between;">
+            <li><strong>Total Sales:</strong> ${{ result.sum_sales }}</li>
+            <li><strong>Average Sales:</strong> ${{ result.avg_sales }}</li>
+            <li><strong>Total Quantity:</strong> {{ result.sum_quantity }}</li>
+            <li><strong>Average Quantity:</strong> {{ result.avg_quantity }}</li>
+            <li><strong>Total Discount:</strong> <br> {{ result.sum_discount|floatformat:2 }} % </li>
+            <li><strong>Average Discount:</strong> <br> {{ result.avg_discount|floatformat:2 }} %</li>
+            <li><strong>Total Profit:</strong> ${{ result.sum_profit }}</li>
+            <li><strong>Average Profit:</strong> ${{ result.avg_profit }}</li>
+            <li><strong>Record Count:</strong> {{ result.count_records }}</li>
+        </ul>
+    </div>
+
+    <ul>
+        <li><strong>Total Revenue:</strong> ${{ result.total_revenue }}</li>
+        <li><strong>Average Discount Percentage:</strong> {{ result.avg_discount }}%</li>
+        <li><strong>Best-Selling Product:</strong> {{ result.best_selling_product }}</li>
+        <li><strong>Most Profitable Product:</strong> {{ result.most_profitable_product }}</li>
+        <li><strong>Product with Maximum Discount :</strong> {{ result.max_discount_product }}</li>
+    </ul>
+
+    <table class="table table-bordered mt-3">
+        <thead>
+            <tr>
+                {% for column in data.0.keys %}
+                    <th>{{ column }}</th>
+                {% endfor %}
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in data %}
+            <tr>
+                {% for value in row.values %}
+                    <td>{{ value }}</td>
+                {% endfor %}
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% else %}
+    <p>No products found.</p>
+{% endif %}
